@@ -1,27 +1,36 @@
 const cron = require('node-cron');
-const { db, http } = require('./utils');
+
+const {
+    db,
+    http,
+    logger
+} = require('./utils');
 const axios = require('./utils/axios');
 
-cron.schedule('* * 22 * * *', ()=> {
+cron.schedule('00 18 * * *', () => {
     VoidMain.getData();
 })
 
-class VoidMain{
-    static async getData(){
-        try {
-            var response$ = (await http.get('/Scorpion'));
+class VoidMain {
+    static async getData() {
 
-            // console.log(response$.status);
-    
-            const name = new Date()
-                        .toDateString()
-                        .split(" ")
-                        .join("_");
-    
+        const name = new Date()
+            .toDateString()
+            .split(" ")
+            .join("_");
+
+        try {
+            var response$ = (await http.get('api/notifications/GetNotificaciones'));
+
             db.setItem(name, JSON.stringify(response$.data));
+
+            logger.customLogger.info(response$.data)
+
         } catch (error) {
-            console.error(error.message);
+            db.setItem(name, JSON.stringify(error.message));
+
+            logger.customLogger.error(error.message)
         }
-       
+
     }
 }

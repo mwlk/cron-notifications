@@ -1,4 +1,5 @@
 module.exports = {
     http: require("./axios"),
-    db: require('./db')
+    db: require('./db'),
+    logger: require('./winston')
 }
