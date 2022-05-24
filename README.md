@@ -1,6 +1,6 @@
 # ejecutar en dev => npm run dev (sale con nodemon)
 
-# revisar en disco local E: la carpeta LogServiceFecac
+# revisar en disco local E: la carpeta LogService
 # si no existe crearla
 
 # para testear en tiempo de ejecucion dentro de la carpeta database se crea un log
